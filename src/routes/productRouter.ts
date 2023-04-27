@@ -4,21 +4,14 @@ import Product from "../models/Product";
 import { getClient } from "../db";
 import { ObjectId } from "mongodb";
 
-const productRouter = express.Router();
+export const productRouter = express.Router();
 
 const errorResponse = (error: any, res: any) => {
   console.error("FAIL", error);
   res.status(500).json({ message: "Internal Server Error" });
 };
 
-// db.products.find({})
-// db.products.find({}).limit(3)
 
-// GET - http://localhost:3000/products?max-price=100
-// GET - http://localhost:3000/products?max-price=kjlsndakljnsfdkjnasdfknjsdfkjnal
-
-// ...["Mitch", "James"] - "Mitch", "James"
-// ...{firstName: "Mitch", lastName: "Cuckovich"} - firstName: "Mitch", lastName: "Cuckovich"
 
 productRouter.get("/products", async (req, res) => {
   {
@@ -32,14 +25,7 @@ productRouter.get("/products", async (req, res) => {
       limit = null;
     }
 
-    // const query = {
-    //   ...(maxPrice ? { price: { $lte: maxPrice } } : {}),
-    //   ...(includes ? { name: new RegExp(`${includes}`, "i") } : {}),
-    // };
-
-    // db.products.find({price: {$lte: 100}, name: "Oil"})
-
-    const query: any = {};
+     const query: any = {};
     if (maxPrice) {
       query.price = { $lte: maxPrice };
     }
@@ -59,7 +45,6 @@ productRouter.get("/products", async (req, res) => {
   }
 });
 
-// GET - http://localhost:3000/products/james123
 
 productRouter.get("/products/:id", async (req, res) => {
    {
